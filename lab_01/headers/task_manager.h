@@ -4,6 +4,6 @@
 
 #include "struct.h"
 
-int task_manager(event_s event, int command);
+int task_manager(event_s &event, int command);
 
 #endif

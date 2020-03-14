@@ -36,11 +36,11 @@ void destruct_figure(figure_s *figure)
         delete[] figure->list_connections;
 }
 
-int fill_figure(figure_s *figure)
+int fill_figure(figure_s *figure, char file_name[64])
 {
     int rc;
 
-    FILE *f = fopen(FILE_NAME, MODE_READ);
+    FILE *f = fopen(file_name, MODE_READ);
 
     if (!f)
         return ERROR_OPEN_FILE;

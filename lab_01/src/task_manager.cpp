@@ -5,32 +5,41 @@
 #include "constants.h"
 #include "figure_cdio.h"
 
-// #include "functions_geometry.h"
+#include "projections_cdio.h"
 
-int task_manager(event_s event, int command)
+#include "functions_geometry.h"
+
+int task_manager(event_s &event, int command)
 {
     int err = OK;
-    static figure_s *figure = create_figure();
+    static figure_s *figure = create_figure(); // (x, y, z, 1)
 
     switch (command)
     {
     case MOVING:
-        // err = function_moving(my_struct->figure, parse_data(my_struct));
-        printf("Вращай.\n");
-
+        err = function_moving(figure, event.args);
         break;
     case ROTATE:
-        // err = function_rotate(my_struct->figure, parse_data(my_struct));
+        err = function_rotate(figure, event.args);
         break;
     case SCALE:
-        // err = function_scale(my_struct->figure, parse_data(my_struct));
+        err = function_scale(figure, event.args);
         break;
     case LOAD_FILE:
-        err = fill_figure(figure); // + NAME!!!
+        err = fill_figure(figure, event.file_name);
+        if (err)
+        {
+            printf("err_file = %d\n", err);
+            return err;
+        }
+        update_projections(event.projections, figure);
+        // print_projections(stdout, event.projections);
+        // print_figure(stdout, figure);
         break;
     }
 
-    // print_figure(stdout, my_struct->figure);
+    fill_projections(event.projections, figure);
+    // print_projections(stdout, event.projections);
 
     return err;
 }

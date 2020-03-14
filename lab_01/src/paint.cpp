@@ -1,6 +1,8 @@
 #include "constants.h"
 #include "paint.h"
 
+#include "projections_cdio.h"
+
 // Рисуем контур.
 void draw_contour(cairo_t *cr, int width, int height)
 {
@@ -41,17 +43,17 @@ void draw_coordinate_axes(cairo_t *cr, int width, int height)
 }
 
 // Рисуем фигуру.
-void draw_figure(cairo_t *cr, figure_s *figure, int width, int height)
+void draw_figure(cairo_t *cr, projections_s *projections, int width, int height)
 {
     int index1, index2;
 
     cairo_set_source_rgb(cr, TURQUOISE);
-    for (int i = 0; i < figure->count_connections; i++)
+    for (int i = 0; i < projections->count_connections; i++)
     {
-        index1 = figure->list_connections[i][0];
-        index2 = figure->list_connections[i][1];
-        cairo_move_to(cr, figure->list_points[index1][0] + width / 2, -figure->list_points[index1][1] + height / 2);
-        cairo_line_to(cr, figure->list_points[index2][0] + width / 2, -figure->list_points[index2][1] + height / 2);
+        index1 = projections->list_connections[i][0];
+        index2 = projections->list_connections[i][1];
+        cairo_move_to(cr, projections->list_points[index1][0] + width / 2, -projections->list_points[index1][1] + height / 2);
+        cairo_line_to(cr, projections->list_points[index2][0] + width / 2, -projections->list_points[index2][1] + height / 2);
     }
     cairo_stroke(cr);
 }
@@ -72,7 +74,10 @@ gboolean on_draw1_draw(GtkWidget *widget, cairo_t *cr, projections_s *projection
 
     draw_contour(cr, width, height);
     draw_coordinate_axes(cr, width, height);
-    // draw_figure(cr, my_struct->figure, width, height);
+
+    print_projections(stdout, projections);
+
+    draw_figure(cr, projections, width, height);
 
     return FALSE;
 }

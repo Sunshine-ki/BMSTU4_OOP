@@ -8,7 +8,7 @@
 
 figure_s *create_figure();
 
-int fill_figure(figure_s *figure_temp);
+int fill_figure(figure_s *figure_temp, char file_name[64]);
 
 void destruct_figure(figure_s *figure_temp);
 

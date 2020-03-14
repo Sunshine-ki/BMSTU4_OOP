@@ -3,7 +3,6 @@
 #define _CONSTANTS_H_
 
 #define GLADE_FILE "glade_file/part1.glade"
-#define FILE_NAME "figures/figure.txt"
 #define MODE_READ "r"
 
 #define OK 0

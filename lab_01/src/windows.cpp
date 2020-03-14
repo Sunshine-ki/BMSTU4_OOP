@@ -5,11 +5,7 @@
 #include "paint.h"
 #include "struct.h"
 #include "task_manager.h"
-
-projections_s *create_projections()
-{
-    return (projections_s *)new projections_s[1];
-}
+#include "projections_cdio.h"
 
 void actions_settings(GtkBuilder *builder, my_struct_s &moving_s, my_struct_s &rotate_s, my_struct_s &scale_s)
 {
@@ -37,7 +33,7 @@ void signal_connect(GtkBuilder *builder, GtkWidget *window)
 
     upload_file.canvas = (moving_s.canvas = (rotate_s.canvas = (scale_s.canvas = GTK_WIDGET(gtk_builder_get_object(builder, "canvas")))));
 
-    upload_file.event.projections = (moving_s.event.projections = (rotate_s.event.projections = (scale_s.event.projections = create_projections())));
+    scale_s.event.projections = (moving_s.event.projections = (rotate_s.event.projections = (upload_file.event.projections = create_projections())));
 
     button_settings(builder, &button1, &button2, &button3);
 
@@ -53,7 +49,10 @@ void signal_connect(GtkBuilder *builder, GtkWidget *window)
 
     g_signal_connect(G_OBJECT(button_upload_file), "clicked", G_CALLBACK(function_upload_file), &upload_file);
 
-    g_signal_connect(G_OBJECT(moving_s.canvas), "draw", G_CALLBACK(on_draw1_draw), &moving_s);
+    upload_file.event.projections->count_points = 0;
+    printf("AA%dAA ", upload_file.event.projections->count_points);
+
+    g_signal_connect(G_OBJECT(upload_file.canvas), "draw", G_CALLBACK(on_draw1_draw), moving_s.event.projections);
 
     gtk_widget_show(window);
 

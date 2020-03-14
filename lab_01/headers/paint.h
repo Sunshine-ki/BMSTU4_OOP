@@ -6,7 +6,7 @@
 
 #include "struct.h"
 
-void draw_figure(cairo_t *cr, figure_s *figure_temp, int width, int height);
+void draw_figure(cairo_t *cr, projections_s *projections, int width, int height);
 
 void draw_coordinate_axes(cairo_t *cr, int width, int height);
 

@@ -6,6 +6,8 @@
 #include "clicked.h"
 #include "task_manager.h"
 #include "constants.h"
+#include "figure_cdio.h"
+#include "projections_cdio.h"
 
 #include <math.h>
 #include <string.h>
@@ -56,6 +58,7 @@ void on_button1_clicked(GtkButton *b, my_struct_s *my_struct)
     }
 
     // print_figure(stdout, my_struct->figure);
+    // print_projections(stdout, my_struct->event.projections);
 
     gtk_widget_queue_draw(my_struct->canvas);
 }
