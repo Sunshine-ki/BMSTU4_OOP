@@ -1,7 +1,4 @@
-#include "constants.h"
 #include "paint.h"
-
-#include "projections_cdio.h"
 
 // Рисуем контур.
 void draw_contour(cairo_t *cr, int width, int height)
@@ -58,26 +55,14 @@ void draw_figure(cairo_t *cr, projections_s *projections, int width, int height)
     cairo_stroke(cr);
 }
 
-gboolean on_draw1_draw(GtkWidget *widget, cairo_t *cr, projections_s *projections)
+void draw(GtkWidget *widget, cairo_t *cr, projections_s *projections)
 {
-    static int a = 5;
-    a += 50;
-
     guint width = gtk_widget_get_allocated_width(widget);
     guint height = gtk_widget_get_allocated_height(widget);
 
-    cairo_set_line_width(cr, 1);
-    cairo_set_source_rgb(cr, BLUE);
-
-    cairo_move_to(cr, width / 2, height / 2);
-    cairo_line_to(cr, a, a);
-
     draw_contour(cr, width, height);
     draw_coordinate_axes(cr, width, height);
-
-    print_projections(stdout, projections);
-
     draw_figure(cr, projections, width, height);
 
-    return FALSE;
+    // print_projections(stdout, projections);
 }

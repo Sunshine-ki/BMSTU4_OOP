@@ -1,13 +1,6 @@
 #include <stdio.h>
 
 #include "task_manager.h"
-#include "clicked.h"
-#include "constants.h"
-#include "figure_cdio.h"
-
-#include "projections_cdio.h"
-
-#include "functions_geometry.h"
 
 int task_manager(event_s &event, int command)
 {

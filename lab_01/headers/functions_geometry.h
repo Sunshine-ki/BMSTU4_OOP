@@ -2,8 +2,11 @@
 
 #define _FUNCTIONS_GEOMETRY_H_
 
+#include <math.h>
+
 #include "struct.h"
 #include "constants.h"
+#include "error_constants.h"
 
 int function_moving(figure_s *figure_temp, double *args);
 

@@ -2,6 +2,7 @@
 
 #define _CONSTANTS_H_
 
+#define STRING_ERROR_INPUT "qwertyuiop[]asdfghjkl;'zxcvbnm/"
 #define GLADE_FILE "glade_file/part1.glade"
 #define MODE_READ "r"
 

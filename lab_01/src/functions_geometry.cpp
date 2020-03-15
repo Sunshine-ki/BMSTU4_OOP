@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <math.h>
-
 #include "functions_geometry.h"
-#include "error_constants.h"
 
 int check_args(double *args)
 {

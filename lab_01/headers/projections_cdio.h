@@ -3,6 +3,7 @@
 #define _PROJECTIONS_CDIO_H_
 
 #include "struct.h"
+#include "constants.h"
 
 void fill_projections(projections_s *projections, figure_s *figure);
 

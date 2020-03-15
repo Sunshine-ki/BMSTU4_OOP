@@ -7,6 +7,9 @@
 #define ERROR_INPUT_POINTS -3
 #define ERROR_COUNT_CONNECTIONS -4
 #define ERROR_INPUT_CONNECTIONS -5
-#define ERROR_FILL -1
+#define ERROR_FILL -6
 #define ERROR_CHECK -7
+#define ERROR_EMPTY_INPUT -8
+#define ERROR_INPUT_SYMBOL -9
+
 #endif

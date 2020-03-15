@@ -1,5 +1,4 @@
 #include "projections_cdio.h"
-#include "constants.h"
 
 projections_s *create_projections()
 {

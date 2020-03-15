@@ -69,7 +69,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Click Me!</property>
-                <signal name="clicked" handler="on_button1_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -134,7 +134,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">Click Me!</property>
-                <signal name="clicked" handler="on_button1_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -218,6 +218,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="on_button_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -243,8 +244,11 @@
             </child>
             <child>
               <object class="GtkEntry" id="entry_name_file">
+                <property name="width_request">0</property>
+                <property name="height_request">0</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="margin_top">5</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -254,7 +258,6 @@
           </object>
           <packing>
             <property name="x">525</property>
-            <property name="y">25</property>
           </packing>
         </child>
         <child>
@@ -263,7 +266,7 @@
             <property name="height_request">500</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <signal name="draw" handler="on_draw1_draw" swapped="no"/>
+            <signal name="draw" handler="draw" swapped="no"/>
           </object>
         </child>
       </object>
