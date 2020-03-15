@@ -21,18 +21,12 @@ int task_manager(event_s &event, int command)
     case LOAD_FILE:
         err = fill_figure(figure, event.file_name);
         if (err)
-        {
-            printf("err_file = %d\n", err);
             return err;
-        }
-        update_projections(event.projections, figure);
-        // print_projections(stdout, event.projections);
-        // print_figure(stdout, figure);
+        err = update_projections(event.projections, figure);
         break;
     }
 
     fill_projections(event.projections, figure);
-    // print_projections(stdout, event.projections);
 
     return err;
 }

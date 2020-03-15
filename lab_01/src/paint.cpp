@@ -40,7 +40,7 @@ void draw_coordinate_axes(cairo_t *cr, int width, int height)
 }
 
 // Рисуем фигуру.
-void draw_figure(cairo_t *cr, projections_s *projections, int width, int height)
+void draw_figure(cairo_t *cr, figure_s *projections, int width, int height)
 {
     int index1, index2;
 
@@ -55,7 +55,7 @@ void draw_figure(cairo_t *cr, projections_s *projections, int width, int height)
     cairo_stroke(cr);
 }
 
-void draw(GtkWidget *widget, cairo_t *cr, projections_s *projections)
+void draw(GtkWidget *widget, cairo_t *cr, figure_s *projections)
 {
     guint width = gtk_widget_get_allocated_width(widget);
     guint height = gtk_widget_get_allocated_height(widget);
@@ -64,5 +64,5 @@ void draw(GtkWidget *widget, cairo_t *cr, projections_s *projections)
     draw_coordinate_axes(cr, width, height);
     draw_figure(cr, projections, width, height);
 
-    // print_projections(stdout, projections);
+    print_figure(stdout, projections);
 }

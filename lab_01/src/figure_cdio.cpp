@@ -4,14 +4,25 @@
 
 figure_s *create_figure()
 {
-    return new figure_s[1];
+    figure_s *figure = (figure_s *)new figure_s[1];
+    figure->count_connections = figure->count_points = 0;
+    figure->list_connections = NULL;
+    figure->list_points = NULL;
+    return figure;
 }
 
-void print_figure(FILE *f, figure_s const *const figure)
+void print_figure(FILE *f, figure_s const *const figure, int flag)
 {
     for (int i = 0; i < figure->count_points; i++)
-        fprintf(f, "%lf %lf %lf\n", figure->list_points[i][X],
-                figure->list_points[i][Y], figure->list_points[i][Z]);
+    {
+        fprintf(f, "%lf %lf ", figure->list_points[i][X],
+                figure->list_points[i][Y]);
+
+        if (flag)
+            fprintf(f, "%lf", figure->list_points[i][Z]);
+
+        fprintf(f, "\n");
+    }
 
     fprintf(f, "\n");
     for (int i = 0; i < figure->count_connections; i++)
@@ -36,51 +47,7 @@ void destruct_figure(figure_s *figure)
         delete[] figure->list_connections;
 }
 
-int fill_figure(figure_s *figure, char file_name[64])
-{
-    int rc;
-
-    FILE *f = fopen(file_name, MODE_READ);
-
-    if (!f)
-        return ERROR_OPEN_FILE;
-
-    rc = fscanf(f, "%d", &figure->count_points);
-    if (rc != 1 || figure->count_points <= 0)
-    {
-        destruct_figure(figure);
-        fclose(f);
-        return ERROR_COUNT_POINTS;
-    }
-
-    if (fill_point(f, figure))
-    {
-        destruct_figure(figure);
-        fclose(f);
-        return ERROR_INPUT_POINTS;
-    }
-
-    rc = fscanf(f, "%d", &figure->count_connections);
-    if (rc != 1 || figure->count_connections <= 0)
-    {
-        destruct_figure(figure);
-        fclose(f);
-        return ERROR_COUNT_CONNECTIONS;
-    }
-
-    if (fill_connections(f, figure))
-    {
-        destruct_figure(figure);
-        fclose(f);
-        return ERROR_INPUT_CONNECTIONS;
-    }
-
-    fclose(f);
-
-    return 0;
-}
-
-int fill_point(FILE *f, figure_s *figure)
+int fill_point(figure_s *figure, FILE *f)
 {
     figure->list_points = (double **)new double **[figure->count_points];
 
@@ -108,7 +75,7 @@ int fill_point(FILE *f, figure_s *figure)
     return 0;
 }
 
-int fill_connections(FILE *f, figure_s *figure)
+int fill_connections(figure_s *figure, FILE *f)
 {
     figure->list_connections = (int **)new int **[figure->count_connections];
 
@@ -131,6 +98,50 @@ int fill_connections(FILE *f, figure_s *figure)
             return ERROR_FILL;
         }
     }
+
+    return 0;
+}
+
+int fill_figure(figure_s *figure, char file_name[64])
+{
+    int rc;
+
+    FILE *f = fopen(file_name, MODE_READ);
+
+    if (!f)
+        return ERROR_OPEN_FILE;
+
+    rc = fscanf(f, "%d", &figure->count_points);
+    if (rc != 1 || figure->count_points <= 0)
+    {
+        destruct_figure(figure);
+        fclose(f);
+        return ERROR_COUNT_POINTS;
+    }
+
+    if (fill_point(figure, f))
+    {
+        destruct_figure(figure);
+        fclose(f);
+        return ERROR_INPUT_POINTS;
+    }
+
+    rc = fscanf(f, "%d", &figure->count_connections);
+    if (rc != 1 || figure->count_connections <= 0)
+    {
+        destruct_figure(figure);
+        fclose(f);
+        return ERROR_COUNT_CONNECTIONS;
+    }
+
+    if (fill_connections(figure, f))
+    {
+        destruct_figure(figure);
+        fclose(f);
+        return ERROR_INPUT_CONNECTIONS;
+    }
+
+    fclose(f);
 
     return 0;
 }

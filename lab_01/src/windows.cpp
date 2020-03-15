@@ -24,7 +24,7 @@ void signal_connect(GtkBuilder *builder, GtkWidget *window)
 
     upload_file.canvas = (moving_s.canvas = (rotate_s.canvas = (scale_s.canvas = GTK_WIDGET(gtk_builder_get_object(builder, "canvas")))));
 
-    scale_s.event.projections = (moving_s.event.projections = (rotate_s.event.projections = (upload_file.event.projections = create_projections())));
+    scale_s.event.projections = (moving_s.event.projections = (rotate_s.event.projections = (upload_file.event.projections = create_figure())));
 
     button_settings(builder, &button1, &button2, &button3);
 

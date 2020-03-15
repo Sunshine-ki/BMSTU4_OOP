@@ -2,8 +2,8 @@
 
 #define _WINDOWS_H_
 
-#include "projections_cdio.h"
 #include "settings_windows.h"
+#include "projections.h"
 #include "clicked.h"
 #include "paint.h"
 

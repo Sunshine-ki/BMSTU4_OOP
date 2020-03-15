@@ -2,10 +2,9 @@
 
 #define _TASK_MANAGER_H_
 
-#include "projections_cdio.h"
+#include "projections.h"
 #include "figure_cdio.h"
 
-#include "clicked.h"
 #include "functions_geometry.h"
 
 #include "constants.h"
