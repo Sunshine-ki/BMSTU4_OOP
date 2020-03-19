@@ -13,6 +13,8 @@
 #define ROTATE 2
 #define SCALE 3
 #define LOAD_FILE 4
+#define FILL_PROJECTIONS 5
+#define QUIT 6
 
 #define X 0
 #define Y 1
@@ -26,28 +28,28 @@
 #define TURQUOISE 0, 255, 255 // Бирюзовый.
 
 #define MATRIX_SCALE(a, b, c)                                    \
-    {                                                            \
-        {a, 0, 0, 0}, {0, b, 0, 0}, {0, 0, c, 0}, { 0, 0, 0, 1 } \
-    }
+	{                                                            \
+		{a, 0, 0, 0}, {0, b, 0, 0}, {0, 0, c, 0}, { 0, 0, 0, 1 } \
+	}
 
 #define MATRIX_MOVING(a, b, c)                                   \
-    {                                                            \
-        {1, 0, 0, a}, {0, 1, 0, b}, {0, 0, 1, c}, { 0, 0, 0, 1 } \
-    }
+	{                                                            \
+		{1, 0, 0, a}, {0, 1, 0, b}, {0, 0, 1, c}, { 0, 0, 0, 1 } \
+	}
 
 #define MATRIX_ROTATE_X(a)                                                            \
-    {                                                                                 \
-        {1, 0, 0, 0}, {0, cos(a), sin(a), 0}, {0, -sin(a), cos(a), 0}, { 0, 0, 0, 1 } \
-    }
+	{                                                                                 \
+		{1, 0, 0, 0}, {0, cos(a), sin(a), 0}, {0, -sin(a), cos(a), 0}, { 0, 0, 0, 1 } \
+	}
 
 #define MATRIX_ROTATE_Y(a)                                                            \
-    {                                                                                 \
-        {cos(a), 0, -sin(a), 0}, {0, 1, 0, 0}, {sin(a), 0, cos(a), 0}, { 0, 0, 0, 1 } \
-    }
+	{                                                                                 \
+		{cos(a), 0, -sin(a), 0}, {0, 1, 0, 0}, {sin(a), 0, cos(a), 0}, { 0, 0, 0, 1 } \
+	}
 
 #define MATRIX_ROTATE_Z(a)                                                            \
-    {                                                                                 \
-        {cos(a), sin(a), 0, 0}, {-sin(a), cos(a), 0, 0}, {0, 0, 1, 0}, { 0, 0, 0, 1 } \
-    }
+	{                                                                                 \
+		{cos(a), sin(a), 0, 0}, {-sin(a), cos(a), 0, 0}, {0, 0, 1, 0}, { 0, 0, 0, 1 } \
+	}
 
 #endif

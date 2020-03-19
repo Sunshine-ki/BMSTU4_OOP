@@ -12,6 +12,8 @@
 
 void create_windows();
 
+void destroy_windows(GtkWidget *widget, my_struct_s *my_struct);
+
 void signal_connect(GtkBuilder *builder, GtkWidget *window);
 
 #endif

@@ -20,4 +20,6 @@ int fill_point(figure_s *figure, FILE *f);
 
 figure_s *create_figure();
 
+void destruct_all(figure_s *figure, figure_s *projections);
+
 #endif

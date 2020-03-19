@@ -11,5 +11,6 @@
 #define ERROR_CHECK -7
 #define ERROR_EMPTY_INPUT -8
 #define ERROR_INPUT_SYMBOL -9
+#define ERROR_COMMAND -10
 
 #endif

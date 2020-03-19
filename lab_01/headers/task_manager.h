@@ -10,6 +10,6 @@
 #include "constants.h"
 #include "struct.h"
 
-int task_manager(event_s &event, int command);
+int task_manager(event_s &event, const int command);
 
 #endif
