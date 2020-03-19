@@ -10,7 +10,7 @@
 // 1 - figure (x, y, z)
 void print_figure(FILE *f, figure_s const *const figure_temp, int flag = 0);
 
-int fill_figure(figure_s *figure_temp, char file_name[64]);
+int fill_figure(figure_s **figure_temp, char *file_name);
 
 int fill_connections(figure_s *figure, FILE *f);
 

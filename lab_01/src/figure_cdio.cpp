@@ -112,47 +112,51 @@ int fill_connections(figure_s *figure, FILE *f)
 	return 0;
 }
 
-int fill_figure(figure_s *figure, char file_name[64]) //char *file_name
+int fill(figure_s *figure, FILE *f)
 {
-	// Не портить данный если не выполнилпсь.
 	int rc;
-	// удаление и обертка.
+
+	rc = fscanf(f, "%d", &figure->count_points);
+	if (rc != 1 || figure->count_points <= 0)
+		return ERROR_COUNT_POINTS;
+
+	if (fill_point(figure, f))
+		return ERROR_INPUT_POINTS;
+
+	rc = fscanf(f, "%d", &figure->count_connections);
+	if (rc != 1 || figure->count_connections <= 0)
+		return ERROR_COUNT_CONNECTIONS;
+
+	if (fill_connections(figure, f))
+		return ERROR_INPUT_CONNECTIONS;
+
+	return OK;
+}
+
+int fill_figure(figure_s **figure_p, char *file_name) //char *file_name. ok
+{
+	// Не портить данный если не выполнилось. ok.
+	// удаление и обертка. ok.
 	FILE *f = fopen(file_name, MODE_READ);
+	int err = OK;
 
 	if (!f)
 		return ERROR_OPEN_FILE;
 
-	rc = fscanf(f, "%d", &figure->count_points);
-	if (rc != 1 || figure->count_points <= 0)
-	{
-		destruct_figure(figure);
-		fclose(f);
-		return ERROR_COUNT_POINTS;
-	}
+	figure_s *figure_temp = create_figure();
+	err = fill(figure_temp, f);
 
-	if (fill_point(figure, f))
+	if (err)
 	{
-		destruct_figure(figure);
-		fclose(f);
-		return ERROR_INPUT_POINTS;
+		destruct_figure(figure_temp);
 	}
-
-	rc = fscanf(f, "%d", &figure->count_connections);
-	if (rc != 1 || figure->count_connections <= 0)
+	else
 	{
-		destruct_figure(figure);
-		fclose(f);
-		return ERROR_COUNT_CONNECTIONS;
-	}
-
-	if (fill_connections(figure, f))
-	{
-		destruct_figure(figure);
-		fclose(f);
-		return ERROR_INPUT_CONNECTIONS;
+		destruct_figure(*figure_p);
+		*figure_p = figure_temp;
 	}
 
 	fclose(f);
 
-	return 0;
+	return err;
 }

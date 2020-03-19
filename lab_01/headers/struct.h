@@ -6,26 +6,26 @@
 
 typedef struct
 {
-    int count_points;
-    int count_connections;
-    double **list_points;
-    int **list_connections;
+	int count_points;
+	int count_connections;
+	double **list_points;
+	int **list_connections;
 } figure_s;
 
 typedef struct
 {
-    char file_name[64];
-    double args[3];
-    figure_s *projections;
+	char *file_name;
+	double args[3];
+	figure_s *projections;
 } event_s;
 
 typedef struct
 {
-    GtkWidget *canvas;
-    GtkWidget *entry[3];
-    GtkWidget *entry_name_file;
-    figure_s figure;
-    event_s event;
+	GtkWidget *canvas;
+	GtkWidget *entry[3];
+	GtkWidget *entry_name_file;
+	figure_s figure;
+	event_s event;
 } my_struct_s;
 
 #endif
