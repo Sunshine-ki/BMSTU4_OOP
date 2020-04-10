@@ -5,7 +5,7 @@
 #include "projections.h"
 #include "figure_cdio.h"
 
-#include "functions_geometry.h"
+#include "wrapper.h"
 
 #include "constants.h"
 #include "struct.h"

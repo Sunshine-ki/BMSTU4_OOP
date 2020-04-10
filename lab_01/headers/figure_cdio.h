@@ -6,6 +6,8 @@
 #include "struct.h"
 #include "constants.h"
 
+#include "wrapper.h"
+
 // 0 - projections (x, y)
 // 1 - figure (x, y, z)
 void print_figure(FILE *f, figure_s const *const figure_temp, int flag = 0);
@@ -21,7 +23,5 @@ int fill_point(figure_s *figure, FILE *f);
 figure_s *create_figure();
 
 void destruct_all(figure_s *figure, figure_s *projections);
-
-int fill_figure_wrapper(figure_s **figure_p, file_name_s file_name);
 
 #endif

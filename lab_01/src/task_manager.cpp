@@ -12,13 +12,13 @@ int task_manager(event_s &event, const int command)
 	switch (command)
 	{
 	case MOVING:
-		err = function_moving(figure, event.args);
+		err = function_moving_wrapper(figure, event.arguments);
 		break;
 	case ROTATE:
-		err = function_rotate(figure, event.args);
+		err = function_rotate_wrapper(figure, event.arguments);
 		break;
 	case SCALE:
-		err = function_scale(figure, event.args);
+		err = function_scale_wrapper(figure, event.arguments);
 		break;
 	case LOAD_FILE:
 		err = fill_figure_wrapper(&figure, event.file_name);

@@ -133,11 +133,6 @@ int fill(figure_s *figure, FILE *f)
 	return OK;
 }
 
-int fill_figure_wrapper(figure_s **figure_p, file_name_s file_name)
-{
-	return fill_figure(figure_p, file_name.name);
-}
-
 int fill_figure(figure_s **figure_p, char *file_name) //char *file_name.
 {
 	// Не портить данный если не выполнилось. ok.

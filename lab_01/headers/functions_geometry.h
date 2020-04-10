@@ -8,6 +8,8 @@
 #include "constants.h"
 #include "error_constants.h"
 
+#include "wrapper.h"
+
 int function_moving(figure_s *figure_temp, double *args);
 
 int function_rotate(figure_s *figure_temp, double *args);

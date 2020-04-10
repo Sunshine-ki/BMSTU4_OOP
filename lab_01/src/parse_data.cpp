@@ -12,7 +12,7 @@ int parse_data(my_struct_s *my_struct)
         if (strpbrk(user_answer, STRING_ERROR_INPUT) != NULL)
             return ERROR_INPUT_SYMBOL;
         // printf("%s \n", user_answer);
-        my_struct->event.args[i] = atof(user_answer);
+        my_struct->event.arguments.args[i] = atof(user_answer);
     }
 
     return OK;
