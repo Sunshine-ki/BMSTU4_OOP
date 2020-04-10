@@ -38,14 +38,10 @@ void print_figure(FILE *f, figure_s const *const figure, int flag)
 
 void destruct_figure(figure_s *figure)
 {
-	// if (figure->count_points <= 0)
-	// return ERROR_COUNT_POINTS;
 	for (int i = 0; i < figure->count_points; i++)
 		if (figure->list_points[i])
 			delete[] figure->list_points[i];
 
-	// if (figure->count_connections <= 0)
-	// return ERROR_COUNT_CONNECTIONS;
 	for (int i = 0; i < figure->count_connections; i++)
 		if (figure->list_connections[i])
 			delete[] figure->list_connections[i];
@@ -57,114 +53,130 @@ void destruct_figure(figure_s *figure)
 		delete[] figure->list_connections;
 }
 
-int fill_point(figure_s *figure, FILE *f)
+int create_list_points(figure_s *figure)
 {
-	// Перенести считываение кол-во точек сюда.
-	// Разделить выделение памяти и считывание (цикл) (Разбить на функции)
-	// Из цикла выход один.
-	//
 	figure->list_points = (double **)new double **[figure->count_points];
 
 	if (!figure->list_points)
-		return ERROR_FILL;
+		return ERROR_ALLOCATION_MEMORY;
 
 	for (int i = 0; i < figure->count_points; i++)
 	{
 		figure->list_points[i] = (double *)new double *[COUNT_COORDINATES + 1];
 		if (!figure->list_points[i])
-		{
-			destruct_figure(figure); // Не должно быть в цикле!
-			return ERROR_FILL;
-		}
-		if (fscanf(f, "%lf %lf %lf", &figure->list_points[i][0],
-				   &figure->list_points[i][1],
-				   &figure->list_points[i][2]) != COUNT_COORDINATES)
-		{
-			destruct_figure(figure);
-			return ERROR_FILL;
-		}
-		figure->list_points[i][3] = 1;
+			return ERROR_ALLOCATION_MEMORY;
 	}
-
-	return ОК;
-}
-
-int fill_connections(figure_s *figure, FILE *f)
-{
-	figure->list_connections = (int **)new int **[figure->count_connections];
-
-	if (!figure->list_connections)
-		return ERROR_FILL;
-
-	for (int i = 0; i < figure->count_connections; i++)
-	{
-		figure->list_connections[i] = (int *)new int *[2];
-		if (!figure->list_connections[i])
-		{
-			destruct_figure(figure);
-			return ERROR_FILL;
-		}
-
-		if (fscanf(f, "%d %d", &figure->list_connections[i][0],
-				   &figure->list_connections[i][1]) != 2)
-		{
-			destruct_figure(figure);
-			return ERROR_FILL;
-		}
-	}
-
-	return 0;
-}
-// Очистить тут! (а не в обертке).
-// Грамматика ! fill_points !!!
-int fill(figure_s *figure, FILE *f)
-{
-	int rc;
-
-	// Тоже в обертку
-	// err = считать колво точек
-	// if err return..
-	rc = fscanf(f, "%d", &figure->count_points);
-	if (rc != 1 || figure->count_points <= 0)
-		return ERROR_COUNT_POINTS;
-
-	if (fill_point(figure, f))
-		return ERROR_INPUT_POINTS;
-
-	rc = fscanf(f, "%d", &figure->count_connections);
-	if (rc != 1 || figure->count_connections <= 0)
-		return ERROR_COUNT_CONNECTIONS;
-
-	if (fill_connections(figure, f))
-		return ERROR_INPUT_CONNECTIONS;
 
 	return OK;
 }
 
-int fill_figure(figure_s **figure_p, char *file_name) //char *file_name.
+int fill_points(figure_s *figure, FILE *f)
+{
+	// Перенести считывание кол-во точек сюда. ok.
+	// Разделить выделение памяти и считывание (цикл) (Разбить на функции) ok.
+	// Из цикла выход один. ok.
+	int rc = fscanf(f, "%d", &figure->count_points);
+	if (rc != 1 || figure->count_points <= 0)
+		return ERROR_COUNT_POINTS;
+
+	int err = create_list_points(figure);
+	if (err)
+		return err;
+
+	for (int i = 0; i < figure->count_points; i++)
+	{
+		rc = fscanf(f, "%lf %lf %lf", &figure->list_points[i][0],
+					&figure->list_points[i][1], &figure->list_points[i][2]);
+		if (rc != COUNT_COORDINATES)
+			return ERROR_FILL_POINTS;
+
+		figure->list_points[i][3] = 1;
+	}
+
+	return OK;
+}
+
+int create_list_connections(figure_s *figure)
+{
+	figure->list_connections = (int **)new int **[figure->count_connections];
+
+	if (!figure->list_connections)
+		return ERROR_ALLOCATION_MEMORY;
+
+	for (int i = 0; i < figure->count_connections; i++)
+	{
+		figure->list_connections[i] = (int *)new int *[COUNT_CONNECTIONS];
+		if (!figure->list_connections[i])
+			return ERROR_ALLOCATION_MEMORY;
+	}
+
+	return OK;
+}
+
+int fill_connections(figure_s *figure, FILE *f)
+{
+	int rc = fscanf(f, "%d", &figure->count_connections);
+	if (rc != 1 || figure->count_connections <= 0)
+		return ERROR_COUNT_CONNECTIONS;
+
+	int err = create_list_connections(figure);
+	if (err)
+		return err;
+
+	for (int i = 0; i < figure->count_connections; i++)
+	{
+		rc = fscanf(f, "%d %d", &figure->list_connections[i][0],
+					&figure->list_connections[i][1]);
+		if (rc != COUNT_CONNECTIONS)
+			return ERROR_FILL_CONNECTIONS;
+	}
+
+	return OK;
+}
+
+// Очистить тут!(А не в обертке) ok.
+// fill_points !!! ok.
+int fill(figure_s *figure, FILE *f)
+{
+	// Тоже в обертку ok.
+	// err = считать кол-во точек ok.
+	// if err return.. ok.
+	int err = fill_points(figure, f);
+	if (err)
+	{
+		destruct_figure(figure); // Не должно быть в цикле! ok.
+		return err;
+	}
+
+	err = fill_connections(figure, f);
+	if (err)
+	{
+		destruct_figure(figure);
+		return err;
+	}
+
+	return OK;
+}
+
+int fill_figure(figure_s **figure_p, char *file_name) //char *file_name. ok.
 {
 	// Не портить данный если не выполнилось. ok.
-	// удаление и обертка. ok.
+	// Удаление и обертка. ok.
 	FILE *f = fopen(file_name, MODE_READ);
-	int err = OK;
 
 	if (!f)
 		return ERROR_OPEN_FILE;
 
 	figure_s *figure_temp = create_figure();
-	err = fill(figure_temp, f);
+	int err = fill(figure_temp, f);
 
 	fclose(f);
 
 	if (err)
-	{
-		destruct_figure(figure_temp);
-	}
-	else
-	{
-		destruct_figure(*figure_p);
-		*figure_p = figure_temp;
-	}
+		return err;
+
+	destruct_figure(*figure_p);
+	*figure_p = figure_temp;
 
 	return err;
 }

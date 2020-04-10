@@ -24,6 +24,7 @@
 #define N 4
 
 #define COUNT_COORDINATES 3
+#define COUNT_CONNECTIONS 2
 
 #define BLUE 0, 0, 255
 #define TURQUOISE 0, 255, 255 // Бирюзовый.

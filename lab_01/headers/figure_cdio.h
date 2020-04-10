@@ -18,7 +18,7 @@ int fill_connections(figure_s *figure, FILE *f);
 
 void destruct_figure(figure_s *figure_temp);
 
-int fill_point(figure_s *figure, FILE *f);
+int fill_points(figure_s *figure, FILE *f);
 
 figure_s *create_figure();
 

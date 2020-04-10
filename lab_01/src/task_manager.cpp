@@ -6,8 +6,6 @@ int task_manager(event_s &event, const int command)
 {
 	int err = OK;
 	static figure_s *figure = create_figure(); // (x, y, z, 1)
-											   // освобождать. ok
-											   //data , command, struct. (?)
 											   // figures/figure.txt
 	switch (command)
 	{
@@ -31,7 +29,7 @@ int task_manager(event_s &event, const int command)
 	case QUIT:
 		destruct_all(figure, event.projections);
 		break;
-	default: // конец.
+	default:
 		err = ERROR_COMMAND;
 		break;
 	}
