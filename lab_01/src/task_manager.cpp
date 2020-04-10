@@ -6,7 +6,7 @@ int task_manager(event_s &event, const int command)
 {
 	int err = OK;
 	static figure_s *figure = create_figure(); // (x, y, z, 1)
-											   // освобождать. ok
+											   // освобождать.
 											   //data , command, struct. (?)
 											   // figures/figure.txt
 	switch (command)
@@ -22,17 +22,17 @@ int task_manager(event_s &event, const int command)
 		break;
 	case LOAD_FILE:
 		err = fill_figure(&figure, event.file_name);
-		if (err)
-			return err;
+		break;
+	case UPDATE_PROJECTIONS:
 		err = update_projections(event.projections, figure);
 		break;
 	case FILL_PROJECTIONS:
-		fill_projections(event.projections, figure);
+		err = fill_projections(event.projections, figure);
 		break;
 	case QUIT:
 		destruct_all(figure, event.projections);
 		break;
-	default: // конец. ok
+	default: // конец.
 		err = ERROR_COMMAND;
 		break;
 	}

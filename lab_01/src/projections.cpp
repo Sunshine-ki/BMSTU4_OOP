@@ -1,7 +1,9 @@
 #include "projections.h"
 
-void fill_projections(figure_s *projections, figure_s *figure)
+int fill_projections(figure_s *projections, figure_s *figure)
 {
+    if (projections->count_points <= 0)
+        return ERROR_COUNT_POINTS;
     for (int i = 0; i < projections->count_points; i++)
     {
         projections->list_points[i][X] = figure->list_points[i][X];

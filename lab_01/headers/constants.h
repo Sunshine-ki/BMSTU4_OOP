@@ -14,7 +14,8 @@
 #define SCALE 3
 #define LOAD_FILE 4
 #define FILL_PROJECTIONS 5
-#define QUIT 6
+#define UPDATE_PROJECTIONS 6
+#define QUIT 7
 
 #define X 0
 #define Y 1

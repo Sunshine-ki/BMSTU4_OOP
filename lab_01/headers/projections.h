@@ -7,7 +7,7 @@
 
 #include "figure_cdio.h"
 
-void fill_projections(figure_s *projections, figure_s *figure);
+int fill_projections(figure_s *projections, figure_s *figure);
 
 int update_projections(figure_s *projections, figure_s const *const figure);
 
