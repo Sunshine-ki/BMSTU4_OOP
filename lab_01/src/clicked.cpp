@@ -35,8 +35,8 @@ void function_upload_file(GtkButton *b, my_struct_s *my_struct)
 {
 	char name[64];
 	strcpy(name, gtk_entry_get_text(GTK_ENTRY(my_struct->entry_name_file)));
-	my_struct->event.file_name = (char *)new char *[strlen(name) + 1];
-	strcpy(my_struct->event.file_name, name);
+	my_struct->event.file_name.name = (char *)new char *[strlen(name) + 1];
+	strcpy(my_struct->event.file_name.name, name);
 
 	int command = atoi(gtk_button_get_label(GTK_BUTTON(b)));
 

@@ -22,4 +22,6 @@ figure_s *create_figure();
 
 void destruct_all(figure_s *figure, figure_s *projections);
 
+int fill_figure_wrapper(figure_s **figure_p, file_name_s file_name);
+
 #endif

@@ -14,7 +14,12 @@ typedef struct
 
 typedef struct
 {
-	char *file_name;
+	char *name;
+} file_name_s;
+
+typedef struct
+{
+	file_name_s file_name;
 	double args[3];
 	figure_s *projections;
 } event_s;

@@ -2,13 +2,14 @@
 
 int fill_projections(figure_s *projections, figure_s *figure)
 {
-    if (projections->count_points <= 0)
+    if (projections->count_points < 0)
         return ERROR_COUNT_POINTS;
     for (int i = 0; i < projections->count_points; i++)
     {
         projections->list_points[i][X] = figure->list_points[i][X];
         projections->list_points[i][Y] = figure->list_points[i][Y];
     }
+    return OK;
 }
 
 int update_projections(figure_s *projections, figure_s const *const figure)
