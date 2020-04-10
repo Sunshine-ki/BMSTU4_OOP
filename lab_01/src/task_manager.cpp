@@ -31,7 +31,7 @@ int task_manager(event_s &event, const int command)
 	case QUIT:
 		destruct_all(figure, event.projections);
 		break;
-	default: // конец. ok
+	default: // конец.
 		err = ERROR_COMMAND;
 		break;
 	}

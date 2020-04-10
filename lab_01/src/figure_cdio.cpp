@@ -59,6 +59,10 @@ void destruct_figure(figure_s *figure)
 
 int fill_point(figure_s *figure, FILE *f)
 {
+	// Перенести считываение кол-во точек сюда.
+	// Разделить выделение памяти и считывание (цикл) (Разбить на функции)
+	// Из цикла выход один.
+	//
 	figure->list_points = (double **)new double **[figure->count_points];
 
 	if (!figure->list_points)
@@ -69,7 +73,7 @@ int fill_point(figure_s *figure, FILE *f)
 		figure->list_points[i] = (double *)new double *[COUNT_COORDINATES + 1];
 		if (!figure->list_points[i])
 		{
-			destruct_figure(figure);
+			destruct_figure(figure); // Не должно быть в цикле!
 			return ERROR_FILL;
 		}
 		if (fscanf(f, "%lf %lf %lf", &figure->list_points[i][0],
@@ -82,7 +86,7 @@ int fill_point(figure_s *figure, FILE *f)
 		figure->list_points[i][3] = 1;
 	}
 
-	return 0;
+	return ОК;
 }
 
 int fill_connections(figure_s *figure, FILE *f)
@@ -111,11 +115,15 @@ int fill_connections(figure_s *figure, FILE *f)
 
 	return 0;
 }
-
+// Очистить тут! (а не в обертке).
+// Грамматика ! fill_points !!!
 int fill(figure_s *figure, FILE *f)
 {
 	int rc;
 
+	// Тоже в обертку
+	// err = считать колво точек
+	// if err return..
 	rc = fscanf(f, "%d", &figure->count_points);
 	if (rc != 1 || figure->count_points <= 0)
 		return ERROR_COUNT_POINTS;
@@ -146,6 +154,8 @@ int fill_figure(figure_s **figure_p, char *file_name) //char *file_name.
 	figure_s *figure_temp = create_figure();
 	err = fill(figure_temp, f);
 
+	fclose(f);
+
 	if (err)
 	{
 		destruct_figure(figure_temp);
@@ -155,8 +165,6 @@ int fill_figure(figure_s **figure_p, char *file_name) //char *file_name.
 		destruct_figure(*figure_p);
 		*figure_p = figure_temp;
 	}
-
-	fclose(f);
 
 	return err;
 }
