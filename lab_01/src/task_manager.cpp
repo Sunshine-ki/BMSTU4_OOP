@@ -2,7 +2,7 @@
 
 #include "task_manager.h"
 
-int task_manager(event_s &event, const int command)
+int task_manager(event_s &event, const int command) // (projections, event_s &event, const int command)
 {
 	int err = OK;
 	static figure_s *figure = create_figure(); // (x, y, z, 1)
@@ -24,9 +24,12 @@ int task_manager(event_s &event, const int command)
 	case UPDATE_PROJECTIONS:
 		err = update_projections(event.projections, figure);
 	case FILL_PROJECTIONS:
+		// Избавиться от копирования.
 		err = fill_projections(event.projections, figure);
 		break;
 	case QUIT:
+		//  Чистить тут только figure
+		//  event.projections Чистит в интерфейсе.
 		destruct_all(figure, event.projections);
 		break;
 	default:

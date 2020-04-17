@@ -75,14 +75,18 @@ int fill_points(figure_s *figure, FILE *f)
 	// Перенести считывание кол-во точек сюда. ok.
 	// Разделить выделение памяти и считывание (цикл) (Разбить на функции) ok.
 	// Из цикла выход один. ok.
+
+	// Обертки для fscanf (их тут 2)
 	int rc = fscanf(f, "%d", &figure->count_points);
 	if (rc != 1 || figure->count_points <= 0)
 		return ERROR_COUNT_POINTS;
 
+	// Передавать не фигуру
 	int err = create_list_points(figure);
 	if (err)
 		return err;
 
+	// К одному условию.(Один выход из цикла.)
 	for (int i = 0; i < figure->count_points; i++)
 	{
 		rc = fscanf(f, "%lf %lf %lf", &figure->list_points[i][0],
@@ -93,6 +97,7 @@ int fill_points(figure_s *figure, FILE *f)
 		figure->list_points[i][3] = 1;
 	}
 
+	// Освобождать тут, если не выполнилось
 	return OK;
 }
 
@@ -141,19 +146,26 @@ int fill(figure_s *figure, FILE *f)
 	// Тоже в обертку ok.
 	// err = считать кол-во точек ok.
 	// if err return.. ok.
+
+	// fill_points(figure.points_count, figure.points, f);
 	int err = fill_points(figure, f);
 	if (err)
 	{
-		destruct_figure(figure); // Не должно быть в цикле! ok.
+		// destruct_figure(figure); // Не должно быть в цикле! ok.
 		return err;
 	}
 
+	// fill_points(figure.points_count, figure.points, f);
 	err = fill_connections(figure, f);
 	if (err)
 	{
 		destruct_figure(figure);
 		return err;
 	}
+
+	// if err
+	// return err
+	// return err
 
 	return OK;
 }
