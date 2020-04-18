@@ -12,13 +12,13 @@
 // 1 - figure (x, y, z)
 void print_figure(FILE *f, figure_s const *const figure_temp, int flag = 0);
 
-int fill_figure(figure_s **figure_temp, char *file_name);
+int fill_figure(figure_s &figure_temp, char *file_name);
 
-int fill_connections(figure_s *figure, FILE *f);
+int fill_connections(figure_s &figure, FILE *f);
 
 void destruct_figure(figure_s *figure_temp);
 
-int fill_points(figure_s *figure, FILE *f);
+int fill_points(figure_s &figure, FILE *f);
 
 figure_s *create_figure();
 

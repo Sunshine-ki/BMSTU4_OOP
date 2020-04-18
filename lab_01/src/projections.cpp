@@ -1,34 +1,34 @@
 #include "projections.h"
 
-int fill_projections(figure_s *projections, figure_s *figure)
+int fill_projections(figure_s *projections, figure_s figure)
 {
     if (projections->count_points < 0)
         return ERROR_COUNT_POINTS;
     for (int i = 0; i < projections->count_points; i++)
     {
-        projections->list_points[i][X] = figure->list_points[i][X];
-        projections->list_points[i][Y] = figure->list_points[i][Y];
+        projections->list_points[i][X] = figure.list_points[i][X];
+        projections->list_points[i][Y] = figure.list_points[i][Y];
     }
     return OK;
 }
 
-int fill_count(figure_s *projections, figure_s const *const figure)
+int fill_count(figure_s *projections, figure_s const figure)
 {
-    if (figure->count_points <= 0)
+    if (figure.count_points <= 0)
         return ERROR_COUNT_POINTS;
 
-    if (figure->count_connections <= 0)
+    if (figure.count_connections <= 0)
         return ERROR_COUNT_CONNECTIONS;
 
-    projections->count_points = figure->count_points;
-    projections->count_connections = figure->count_connections;
+    projections->count_points = figure.count_points;
+    projections->count_connections = figure.count_connections;
 
     return OK;
 }
 
-int create_projections(figure_s *projections, figure_s const *const figure)
+int create_projections(figure_s *projections, figure_s const figure)
 {
-    projections->list_points = (double **)new double **[figure->count_points];
+    projections->list_points = (double **)new double **[figure.count_points];
     if (!projections->list_points)
         return ERROR_ALLOCATION_MEMORY;
 
@@ -40,7 +40,7 @@ int create_projections(figure_s *projections, figure_s const *const figure)
         projections->list_points[i][0] = projections->list_points[i][1] = 0;
     }
 
-    projections->list_connections = (int **)new int **[figure->count_connections];
+    projections->list_connections = (int **)new int **[figure.count_connections];
     if (!projections->list_connections)
         return ERROR_ALLOCATION_MEMORY;
 
@@ -54,17 +54,17 @@ int create_projections(figure_s *projections, figure_s const *const figure)
     return OK;
 }
 
-void copy_list_connections(figure_s *projections, figure_s const *const figure)
+void copy_list_connections(figure_s *projections, figure_s const figure)
 {
 
     for (int i = 0; i < projections->count_connections; i++)
     {
-        projections->list_connections[i][0] = figure->list_connections[i][0];
-        projections->list_connections[i][1] = figure->list_connections[i][1];
+        projections->list_connections[i][0] = figure.list_connections[i][0];
+        projections->list_connections[i][1] = figure.list_connections[i][1];
     }
 }
 
-int update_projections(figure_s *projections, figure_s const *const figure)
+int update_projections(figure_s *projections, figure_s const figure)
 {
     destruct_figure(projections);
     int err = fill_count(projections, figure);

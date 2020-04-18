@@ -10,10 +10,10 @@
 
 #include "wrapper.h"
 
-int function_moving(figure_s *figure_temp, double *args);
+int function_moving(figure_s &figure_temp, double *args);
 
-int function_rotate(figure_s *figure_temp, double *args);
+int function_rotate(figure_s &figure_temp, double *args);
 
-int function_scale(figure_s *figure_temp, double *args);
+int function_scale(figure_s &figure_temp, double *args);
 
 #endif

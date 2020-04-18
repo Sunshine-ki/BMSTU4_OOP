@@ -30,33 +30,33 @@ void multiplication(double *point, double transform_matrix[N][N])
 	copy_vector(point, vector_res);
 }
 
-int function_moving(figure_s *figure_temp, double *args)
+int function_moving(figure_s &figure, double *args)
 {
 	if (check_args(args))
 		return ERROR_CHECK;
 
 	double matrix_moving[N][N] = MATRIX_MOVING(args[0], args[1], args[2]);
 
-	for (int i = 0; i < figure_temp->count_points; i++)
-		multiplication(figure_temp->list_points[i], matrix_moving);
+	for (int i = 0; i < figure.count_points; i++)
+		multiplication(figure.list_points[i], matrix_moving);
 
 	return OK;
 }
 
-int function_scale(figure_s *figure_temp, double *args)
+int function_scale(figure_s &figure, double *args)
 {
 	if (check_args(args))
 		return ERROR_CHECK;
 
 	double matrix_scale[N][N] = MATRIX_SCALE(args[0], args[1], args[2]);
 
-	for (int i = 0; i < figure_temp->count_points; i++)
-		multiplication(figure_temp->list_points[i], matrix_scale);
+	for (int i = 0; i < figure.count_points; i++)
+		multiplication(figure.list_points[i], matrix_scale);
 
 	return OK;
 }
 
-int function_rotate(figure_s *figure_temp, double *args)
+int function_rotate(figure_s &figure, double *args)
 {
 	if (check_args(args))
 		return ERROR_CHECK;
@@ -68,11 +68,11 @@ int function_rotate(figure_s *figure_temp, double *args)
 	double matrix_rotate_y[N][N] = MATRIX_ROTATE_Y(args[1]);
 	double matrix_rotate_z[N][N] = MATRIX_ROTATE_Z(args[1]);
 
-	for (int i = 0; i < figure_temp->count_points; i++)
+	for (int i = 0; i < figure.count_points; i++)
 	{
-		multiplication(figure_temp->list_points[i], matrix_rotate_x);
-		multiplication(figure_temp->list_points[i], matrix_rotate_y);
-		multiplication(figure_temp->list_points[i], matrix_rotate_z);
+		multiplication(figure.list_points[i], matrix_rotate_x);
+		multiplication(figure.list_points[i], matrix_rotate_y);
+		multiplication(figure.list_points[i], matrix_rotate_z);
 	}
 
 	return OK;
