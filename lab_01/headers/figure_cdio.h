@@ -14,14 +14,14 @@ void print_figure(FILE *f, figure_s const *const figure_temp, int flag = 0);
 
 int fill_figure(figure_s **figure_temp, char *file_name);
 
-int fill_connections(figure_s *figure, FILE *f);
+int fill_connections(int ***list_connections_p, int &count_connections, FILE *f);
 
 void destruct_figure(figure_s *figure_temp);
 
-int fill_points(figure_s *figure, FILE *f);
+int fill_points(double ***list_points_p, int &count_points, FILE *f);
+
+int upload_figure(figure_s *figure, FILE *f);
 
 figure_s *create_figure();
-
-void destruct_all(figure_s *figure, figure_s *projections);
 
 #endif

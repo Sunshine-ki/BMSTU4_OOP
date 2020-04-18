@@ -12,7 +12,7 @@ void on_button_clicked(GtkButton *b, my_struct_s *my_struct)
 		return;
 	}
 
-	int err = task_manager(my_struct->event, command);
+	int err = task_manager(my_struct->projections, my_struct->event, command);
 
 	if (err)
 	{
@@ -20,7 +20,7 @@ void on_button_clicked(GtkButton *b, my_struct_s *my_struct)
 		return;
 	}
 
-	err = task_manager(my_struct->event, FILL_PROJECTIONS);
+	err = task_manager(my_struct->projections, my_struct->event, FILL_PROJECTIONS);
 
 	if (err)
 	{
@@ -40,7 +40,7 @@ void function_upload_file(GtkButton *b, my_struct_s *my_struct)
 
 	int command = atoi(gtk_button_get_label(GTK_BUTTON(b)));
 
-	int err = task_manager(my_struct->event, command);
+	int err = task_manager(my_struct->projections, my_struct->event, command);
 
 	if (err)
 	{
@@ -48,7 +48,7 @@ void function_upload_file(GtkButton *b, my_struct_s *my_struct)
 		return;
 	}
 
-	err = task_manager(my_struct->event, UPDATE_PROJECTIONS);
+	err = task_manager(my_struct->projections, my_struct->event, UPDATE_PROJECTIONS);
 
 	if (err)
 	{
@@ -56,7 +56,7 @@ void function_upload_file(GtkButton *b, my_struct_s *my_struct)
 		return;
 	}
 
-	err = task_manager(my_struct->event, FILL_PROJECTIONS);
+	err = task_manager(my_struct->projections, my_struct->event, FILL_PROJECTIONS);
 
 	if (err)
 	{

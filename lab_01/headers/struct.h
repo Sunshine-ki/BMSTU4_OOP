@@ -26,7 +26,6 @@ typedef struct
 {
 	file_name_s file_name;
 	args_s arguments;
-	figure_s *projections;
 } event_s;
 
 typedef struct
@@ -34,7 +33,7 @@ typedef struct
 	GtkWidget *canvas;
 	GtkWidget *entry[3];
 	GtkWidget *entry_name_file;
-	figure_s figure;
+	figure_s *projections;
 	event_s event;
 } my_struct_s;
 
