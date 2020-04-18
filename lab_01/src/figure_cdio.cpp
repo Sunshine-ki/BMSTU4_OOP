@@ -4,8 +4,8 @@
 
 void destruct_all(figure_s *figure, figure_s *projections)
 {
-	destruct_figure(figure);
-	destruct_figure(projections);
+	// destruct_figure(figure);
+	// destruct_figure(projections);
 }
 
 figure_s *create_figure()
@@ -17,40 +17,40 @@ figure_s *create_figure()
 	return figure;
 }
 
-void print_figure(FILE *f, figure_s const *const figure, int flag)
+void print_figure(FILE *f, figure_s const figure, int flag)
 {
-	for (int i = 0; i < figure->count_points; i++)
+	for (int i = 0; i < figure.count_points; i++)
 	{
-		fprintf(f, "%lf %lf ", figure->list_points[i][X],
-				figure->list_points[i][Y]);
+		fprintf(f, "%lf %lf ", figure.list_points[i][X],
+				figure.list_points[i][Y]);
 
 		if (flag)
-			fprintf(f, "%lf", figure->list_points[i][Z]);
+			fprintf(f, "%lf", figure.list_points[i][Z]);
 
 		fprintf(f, "\n");
 	}
 
 	fprintf(f, "\n");
-	for (int i = 0; i < figure->count_connections; i++)
-		fprintf(f, "%d %d\n", figure->list_connections[i][0],
-				figure->list_connections[i][1]);
+	for (int i = 0; i < figure.count_connections; i++)
+		fprintf(f, "%d %d\n", figure.list_connections[i][0],
+				figure.list_connections[i][1]);
 }
 
-void destruct_figure(figure_s *figure)
+void destruct_figure(figure_s figure)
 {
-	for (int i = 0; i < figure->count_points; i++)
-		if (figure->list_points[i])
-			delete[] figure->list_points[i];
+	for (int i = 0; i < figure.count_points; i++)
+		if (figure.list_points[i])
+			delete[] figure.list_points[i];
 
-	for (int i = 0; i < figure->count_connections; i++)
-		if (figure->list_connections[i])
-			delete[] figure->list_connections[i];
+	for (int i = 0; i < figure.count_connections; i++)
+		if (figure.list_connections[i])
+			delete[] figure.list_connections[i];
 
-	if (figure->list_points)
-		delete[] figure->list_points;
+	if (figure.list_points)
+		delete[] figure.list_points;
 
-	if (figure->list_connections)
-		delete[] figure->list_connections;
+	if (figure.list_connections)
+		delete[] figure.list_connections;
 }
 
 int create_list_points(figure_s &figure)
@@ -170,25 +170,31 @@ int fill(figure_s &figure, FILE *f)
 	return OK;
 }
 
-int fill_figure(figure_s &figure_p, char *file_name) //char *file_name. ok.
+void copy_figure(figure_s &figure_1, figure_s const figure_2)
 {
-	// Не портить данный если не выполнилось. ok.
-	// Удаление и обертка. ok.
+	figure_1.count_connections = figure_2.count_connections;
+	figure_1.count_points = figure_2.count_points;
+	figure_1.list_connections = figure_1.list_connections;
+	figure_1.list_points = figure_1.list_points
+}
+
+int fill_figure(figure_s &figure, char *file_name)
+{
 	FILE *f = fopen(file_name, MODE_READ);
 
 	if (!f)
 		return ERROR_OPEN_FILE;
 
-	// figure_s figure_temp; // = create_figure();
-	int err = fill(figure_p, f);
+	figure_s figure_temp;
+	int err = fill(figure_temp, f);
 
 	fclose(f);
 
-	if (err)
-		return err;
-
-	// destruct_figure(*figure_p);
-	// *figure_p = figure_temp;
+	if (!err)
+	{
+		destruct_figure(figure);
+		copy_figure(figure, figure_temp);
+	}
 
 	return err;
 }

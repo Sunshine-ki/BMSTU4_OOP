@@ -14,7 +14,7 @@ void create_windows()
 
 void destroy_windows(GtkWidget *widget, my_struct_s *my_struct)
 {
-	task_manager(my_struct->event, QUIT);
+	task_manager(my_struct->projections, my_struct->event, QUIT);
 
 	gtk_main_quit();
 }
@@ -31,7 +31,7 @@ void signal_connect(GtkBuilder *builder, GtkWidget *window)
 
 	upload_file.canvas = (moving_s.canvas = (rotate_s.canvas = (scale_s.canvas = GTK_WIDGET(gtk_builder_get_object(builder, "canvas")))));
 
-	scale_s.event.projections = (moving_s.event.projections = (rotate_s.event.projections = (upload_file.event.projections = create_figure())));
+	scale_s.projections = (moving_s.projections = (rotate_s.projections = (upload_file.projections = create_figure())));
 
 	button_settings(builder, &button1, &button2, &button3);
 
@@ -49,7 +49,7 @@ void signal_connect(GtkBuilder *builder, GtkWidget *window)
 
 	g_signal_connect(G_OBJECT(button_upload_file), "clicked", G_CALLBACK(function_upload_file), &upload_file);
 
-	g_signal_connect(G_OBJECT(upload_file.canvas), "draw", G_CALLBACK(draw), moving_s.event.projections);
+	g_signal_connect(G_OBJECT(upload_file.canvas), "draw", G_CALLBACK(draw), moving_s.projections);
 
 	gtk_widget_show(window);
 

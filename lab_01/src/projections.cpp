@@ -66,7 +66,7 @@ void copy_list_connections(figure_s *projections, figure_s const figure)
 
 int update_projections(figure_s *projections, figure_s const figure)
 {
-    destruct_figure(projections);
+    // destruct_figure(projections);
     int err = fill_count(projections, figure);
     if (err)
         return err;
@@ -74,7 +74,7 @@ int update_projections(figure_s *projections, figure_s const figure)
     err = create_projections(projections, figure);
     if (err)
     {
-        destruct_figure(projections);
+        // destruct_figure(projections);
         return err;
     }
 
