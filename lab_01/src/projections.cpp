@@ -1,6 +1,6 @@
 #include "projections.h"
 
-int fill_projections(figure_s *projections, figure_s *figure)
+int fill_projections(figure_s *projections, figure_s const *const figure)
 {
     if (projections->count_points < 0)
         return ERROR_COUNT_POINTS;
@@ -64,8 +64,9 @@ void copy_list_connections(figure_s *projections, figure_s const *const figure)
     }
 }
 
-int update_projections(figure_s *projections, figure_s const *const figure)
+int update_projections(figure_s **projections_p, figure_s const *const figure)
 {
+    figure_s *projections = *projections_p;
     destruct_figure(projections);
     int err = fill_count(projections, figure);
     if (err)
@@ -79,6 +80,9 @@ int update_projections(figure_s *projections, figure_s const *const figure)
     }
 
     copy_list_connections(projections, figure);
+    fill_projections(projections, figure);
+
+    // *projections_p = projections;
 
     return OK;
 }

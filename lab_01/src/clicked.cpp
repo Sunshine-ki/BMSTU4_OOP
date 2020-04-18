@@ -20,7 +20,15 @@ void on_button_clicked(GtkButton *b, my_struct_s *my_struct)
 		return;
 	}
 
-	err = task_manager(my_struct->projections, my_struct->event, FILL_PROJECTIONS);
+	// err = task_manager(my_struct->projections, my_struct->event, FILL_PROJECTIONS);
+
+	// if (err)
+	// {
+	// 	printf("Ошибка: %d\n", err);
+	// 	return;
+	// }
+
+	err = task_manager(my_struct->projections, my_struct->event, UPDATE_PROJECTIONS);
 
 	if (err)
 	{
@@ -56,13 +64,13 @@ void function_upload_file(GtkButton *b, my_struct_s *my_struct)
 		return;
 	}
 
-	err = task_manager(my_struct->projections, my_struct->event, FILL_PROJECTIONS);
+	// err = task_manager(my_struct->projections, my_struct->event, FILL_PROJECTIONS);
 
-	if (err)
-	{
-		printf("Ошибка: %d\n", err);
-		return;
-	}
+	// if (err)
+	// {
+	// 	printf("Ошибка: %d\n", err);
+	// 	return;
+	// }
 
 	gtk_widget_queue_draw(my_struct->canvas);
 }

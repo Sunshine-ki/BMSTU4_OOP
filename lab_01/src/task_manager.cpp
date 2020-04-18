@@ -22,10 +22,8 @@ int task_manager(figure_s *projections, event_s &event, const int command)
 		err = fill_figure_wrapper(&figure, event.file_name);
 		break;
 	case UPDATE_PROJECTIONS:
-		err = update_projections(projections, figure);
-	case FILL_PROJECTIONS:
-		// Избавиться от копирования.
-		err = fill_projections(projections, figure);
+		err = update_projections(&projections, figure);
+		// Избавиться от копирования. ok
 		break;
 	case QUIT:
 		//  Чистить тут только figure. ok.

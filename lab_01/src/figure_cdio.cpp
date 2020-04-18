@@ -94,7 +94,7 @@ int read_count(int &number, FILE *f)
 	return err;
 }
 
-int read_points(double *list_points, FILE *f)
+int read_point(double *list_points, FILE *f)
 {
 	int rc = OK;
 	if (fscanf(f, "%lf %lf %lf", &list_points[0],
@@ -123,7 +123,7 @@ int fill_points(double ***list_points_p, int &count_points, FILE *f)
 
 	// К одному условию.(Один выход из цикла.) ok.
 	for (int i = 0; i < count_points && !err; i++)
-		err = read_points(list_points[i], f);
+		err = read_point(list_points[i], f);
 
 	if (err)
 		destruct_list_points(&list_points, count_points);
@@ -153,7 +153,7 @@ int create_list_connections(int ***list_connections_p, int const count_connectio
 	return OK;
 }
 
-int read_connections(int *list_connections, FILE *f)
+int read_connection(int *list_connections, FILE *f)
 {
 	int rc = OK;
 	if (fscanf(f, "%d %d", &list_connections[0],
@@ -175,7 +175,7 @@ int fill_connections(int ***list_connections_p, int &count_connections, FILE *f)
 		return err;
 
 	for (int i = 0; i < count_connections && !err; i++)
-		err = read_connections(list_connections[i], f);
+		err = read_connection(list_connections[i], f);
 
 	if (err)
 		destruct_list_connections(&list_connections, count_connections);
