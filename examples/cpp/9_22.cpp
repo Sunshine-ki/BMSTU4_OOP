@@ -13,7 +13,7 @@ class triangle;
 class Visitor
 {
 public:
-	virtual ~Visitor() = default;
+	// virtual ~Visitor() = default;
 
 	virtual void visit(Circle& ref) = 0;
 	virtual void visit(Rectangle& ref) = 0;
@@ -24,7 +24,7 @@ public:
 class Shape
 {
 public:
-	virtual ~Shape() = default;
+	// virtual ~Shape() = default;
 
 	virtual void accept(shared_ptr<Visitor> visitor) = 0;
 };
@@ -75,15 +75,18 @@ public:
 
 int main()
 {
-	vector<shared_ptr<Shape>> figure = Formation::initialization(
-		shared_ptr<Shape>(new Circle()),
-		shared_ptr<Shape>(new Rectangle()),
-		shared_ptr<Shape>(new Circle()),
-		shared_ptr<Shape>(new triangle()),
-		shared_ptr<Shape>()
-	);
+	// vector<shared_ptr<Shape>> figure = Formation::initialization(
+	// 	shared_ptr<Shape>(new Circle()),
+	// 	shared_ptr<Shape>(new Rectangle()),
+	// 	shared_ptr<Shape>(new Circle()),
+	// 	shared_ptr<Shape>(new triangle()),
+	// 	shared_ptr<Shape>()
+	// );
 	shared_ptr<Visitor> visitor(new ConVisitor());
-	
-	for (auto& elem : figure)
-		elem->accept(visitor);
+	shared_ptr<Shape> c(new Circle());
+
+	c->accept(visitor);
+
+	// for (auto& elem : figure)
+		// elem->accept(visitor);
 }
