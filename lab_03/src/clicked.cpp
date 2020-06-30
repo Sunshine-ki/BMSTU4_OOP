@@ -5,29 +5,9 @@ using namespace std;
 #include "parse_data.h"
 #include "clicked.h"
 
-enum Command {
-    MOVE = 1, ROTATE, SCALE, LOAD_FILE
-};
-
-int parseData(int args[3], GtkWidget *entries[3])
-{
-	char userAnswer[64];
-
-	for (size_t i = 0; i < 3; i++)
-	{
-		strcpy(userAnswer, gtk_entry_get_text(GTK_ENTRY(entries[i])));
-		if (!strcmp(userAnswer, ""))
-			return ERROR_EMPTY_INPUT;
-		if (strpbrk(userAnswer, STRING_ERROR_INPUT) != NULL)
-			return ERROR_INPUT_SYMBOL;
-		args[i] = atof(userAnswer);
-	}
-
-	return OK;
-}
-
 void clicked(GtkButton *b, myWindows &userWindows)
 {
+	int err;
 	int command = atoi(gtk_button_get_label(GTK_BUTTON(b)));
 	int args[3] = {0};
 
@@ -35,15 +15,21 @@ void clicked(GtkButton *b, myWindows &userWindows)
 	{
 	case Command::MOVE:
 		cout << "MOVE\n";
-		parseData(args, userWindows.entryMove);
+		err = parseData(args, userWindows.entryMove);
+		if (err)
+			cout << err << endl;
 		break;
 	case Command::ROTATE:
 		cout << "ROTATE\n";
-		parseData(args, userWindows.entryRotate);
+		err = parseData(args, userWindows.entryRotate);
+		if (err)
+			cout << err << endl;
 		break;
 	case Command::SCALE:
 		cout << "SCALE\n";
-		parseData(args, userWindows.entryScale);
+		err = parseData(args, userWindows.entryScale);
+		if (err)
+			cout << err << endl;
 		break;
 	case Command::LOAD_FILE:
 		cout << "LOAD_FILE\n";
@@ -56,8 +42,8 @@ void clicked(GtkButton *b, myWindows &userWindows)
 		break;
 	}
 
-	// for (size_t i = 0; i < 3; i++)
-	// 	cout << args[i] << " ";
-	
+	for (size_t i = 0; i < 3; i++)
+		cout << args[i] << " ";
+
 	gtk_widget_queue_draw(userWindows.canvas);
 }

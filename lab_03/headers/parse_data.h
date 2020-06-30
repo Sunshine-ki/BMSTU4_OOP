@@ -1,11 +1,7 @@
-#ifndef _PARSE_DATA_H_
+#pragma once
 
-#define _PARSE_DATA_H_
-
-#include "error_constants.h"
 #include "constants.h"
 #include "struct.h"
 
-int parse_data(my_struct_s *my_struct);
+int parseData(int args[3], GtkWidget *entries[3]);
 
-#endif

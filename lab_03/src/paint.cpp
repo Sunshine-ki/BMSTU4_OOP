@@ -40,19 +40,20 @@ void draw_coordinate_axes(cairo_t *cr, int width, int height)
 }
 
 // Рисуем фигуру.
-void draw_figure(cairo_t *cr, figure_s *projections, int width, int height)
+// void draw_figure(cairo_t *cr, figure_s *projections, int width, int height)
+void draw_figure(cairo_t *cr, int width, int height)
 {
-	int index1, index2;
+	// int index1, index2;
 
-	cairo_set_source_rgb(cr, TURQUOISE);
-	for (int i = 0; i < projections->count_connections; i++)
-	{
-		index1 = projections->list_connections[i][0];
-		index2 = projections->list_connections[i][1];
-		cairo_move_to(cr, projections->list_points[index1][0] + width / 2, -projections->list_points[index1][1] + height / 2);
-		cairo_line_to(cr, projections->list_points[index2][0] + width / 2, -projections->list_points[index2][1] + height / 2);
-	}
-	cairo_stroke(cr);
+	// cairo_set_source_rgb(cr, TURQUOISE);
+	// for (int i = 0; i < projections->count_connections; i++)
+	// {
+	// 	index1 = projections->list_connections[i][0];
+	// 	index2 = projections->list_connections[i][1];
+	// 	cairo_move_to(cr, projections->list_points[index1][0] + width / 2, -projections->list_points[index1][1] + height / 2);
+	// 	cairo_line_to(cr, projections->list_points[index2][0] + width / 2, -projections->list_points[index2][1] + height / 2);
+	// }
+	// cairo_stroke(cr);
 }
 
 void draw(GtkWidget *widget, cairo_t *cr, int &a)
