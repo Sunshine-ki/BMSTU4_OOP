@@ -4,10 +4,6 @@ using namespace std;
 
 #include "windows.h"
 
-#include "figure.h"
-
-#include "builder.h"
-
 using namespace std;
 
 void create_windows()
@@ -29,99 +25,9 @@ void destroy_windows(GtkWidget *widget)
 	gtk_main_quit();
 }
 
-void test()
-{
-	shared_ptr<BaseFigureBuilder> builder(new FigureBuilder());
-	shared_ptr<Director> director(new Director(builder));
-
-	std::vector<Point> points;
-	std::vector<Link> links;
-
-	for (size_t i = 0; i < 5; i++)
-	{
-		Point p(i ,i,i);
-		Link l(i + 1, i + 1); 
-		points.push_back(p);
-		links.push_back(l);
-	}
-
-	shared_ptr<Figure> result = director->createFigure(points, links);
-	
-	result->print();
-
-	// Figure figure;
-	// Point p;
-	// Link l;
-	// for (size_t i = 0; i < 5; i++)
-	// {
-	// 	p.set(i,i,i);
-	// 	l.set(i,i);
-	// 	figure.addPoint(p);
-	// 	figure.addLink(l);
-	// }
-	// figure.print();
-
-
-	////////////
-	//
-
-
-	// Figure figure;
-	
-	// figure.setPoints(points);
-	// figure.setLinks(links);
-
-	// vector<Point> pointsResult = figure.getPoints(); 
-	// vector<Link> linksResult = figure.getLinks(); 
-
-	// for (size_t i = 0; i < 5; i++)
-	// {
-	// 	cout  << pointsResult[i].getX() << " ";
-	// 	cout  << linksResult[i].getFirst() << endl;
-	// }
-
-	
-	// // for transform
-	// cout << endl;
-
-	// for (size_t i = 0; i < pointsResult.size(); i++)
-	// {
-	// 	double x = pointsResult[i].getX();
-	// 	pointsResult[i].set(x-10,10,10);
-	// }
-
-	// figure.setPoints(pointsResult);
-
-
-	// for (size_t i = 0; i < 5; i++)
-	// {
-	// 	cout  << pointsResult[i].getX() << " ";
-	// 	// cout  << linksResult[i].getFirst() << endl;
-	// }
-
-
-	// cout << endl;
-
-	// // Clone.
-
-	// shared_ptr<BaseFigure> figureClone = figure.clone();
-
-	// vector<Point> pointsResultClone = figure.getPoints(); 
-	// vector<Link> linksResultClone = figure.getLinks(); 
-
-	// for (size_t i = 0; i < 5; i++)
-	// {
-	// 	cout  << pointsResultClone[i].getX() << " ";
-	// 	cout  << linksResultClone[i].getFirst() << endl;
-	// }
-	// cout << endl;
-}
-
 
 void signal_connect(GtkBuilder *builder, GtkWidget *window)
 {
-	test();
-
 	myWindows userWindows;
 
 	GtkWidget *button1, *button2, *button3;

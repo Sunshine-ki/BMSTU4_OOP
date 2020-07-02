@@ -13,6 +13,7 @@ void actions_settings(GtkBuilder *builder, myWindows &userWindows)
 		userWindows.entryRotate[i] = GTK_WIDGET(gtk_builder_get_object(builder, entry_names[i + 3]));
 		userWindows.entryScale[i] = GTK_WIDGET(gtk_builder_get_object(builder, entry_names[i + 6]));
 	}
+	userWindows.choice = GTK_WIDGET(gtk_builder_get_object(builder, "entry_object"));
 }
 
 void window_settings(GtkBuilder *builder, GtkWidget **window_p)

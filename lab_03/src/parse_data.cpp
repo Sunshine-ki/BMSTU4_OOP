@@ -1,6 +1,6 @@
 #include "parse_data.h"
 
-int parseData(int args[3], GtkWidget *entries[3])
+int parseData(double args[3], GtkWidget *entries[3])
 {
 	char userAnswer[64];
 
