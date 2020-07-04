@@ -1,9 +1,5 @@
 #pragma once
 
-#define OBJECT_FIGURE 'f'
-#define OBJECT_CAMERA 'c'
-#define OBJECT_SCENE 's'
-
 enum Errors
 {
 	EMPTY_INPUT,

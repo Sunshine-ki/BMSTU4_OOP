@@ -47,6 +47,8 @@ unique_ptr<Creator> createConCreator()
 	return unique_ptr<Creator>(new ConCreator<ConProd1>());
 }
 
+
+// +base
 class Solution
 {
 public:
